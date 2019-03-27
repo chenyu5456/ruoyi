@@ -1,6 +1,8 @@
 package com.ruoyi.system.service.impl;
 
 import java.util.List;
+
+import com.ruoyi.common.utils.UUIDUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.ruoyi.common.support.Convert;
@@ -27,6 +29,7 @@ public class SysOperLogServiceImpl implements ISysOperLogService
     @Override
     public void insertOperlog(SysOperLog operLog)
     {
+        operLog.setOperId(UUIDUtils.createUUID());
         operLogMapper.insertOperlog(operLog);
     }
 

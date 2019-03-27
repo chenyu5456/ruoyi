@@ -1,6 +1,8 @@
 package com.ruoyi.framework.manager.factory;
 
 import java.util.TimerTask;
+
+import com.ruoyi.common.utils.UUIDUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.ruoyi.common.constant.Constants;
@@ -111,6 +113,7 @@ public class AsyncFactory
                 String browser = userAgent.getBrowser().getName();
                 // 封装对象
                 SysLogininfor logininfor = new SysLogininfor();
+                logininfor.setInfoId(UUIDUtils.createUUID());
                 logininfor.setLoginName(username);
                 logininfor.setIpaddr(ip);
                 logininfor.setLoginLocation(AddressUtils.getRealAddressByIP(ip));
