@@ -61,7 +61,7 @@ public class SysRoleServiceImpl implements ISysRoleService
      * @return 权限列表
      */
     @Override
-    public Set<String> selectRoleKeys(Long userId)
+    public Set<String> selectRoleKeys(String userId)
     {
         List<SysRole> perms = roleMapper.selectRolesByUserId(userId);
         Set<String> permsSet = new HashSet<>();
@@ -82,7 +82,7 @@ public class SysRoleServiceImpl implements ISysRoleService
      * @return 角色列表
      */
     @Override
-    public List<SysRole> selectRolesByUserId(Long userId)
+    public List<SysRole> selectRolesByUserId(String userId)
     {
         List<SysRole> userRoles = roleMapper.selectRolesByUserId(userId);
         List<SysRole> roles = selectRoleAll();
@@ -90,7 +90,7 @@ public class SysRoleServiceImpl implements ISysRoleService
         {
             for (SysRole userRole : userRoles)
             {
-                if (role.getRoleId().longValue() == userRole.getRoleId().longValue())
+                if (role.getRoleId().equals(userRole.getRoleId()))
                 {
                     role.setFlag(true);
                     break;
@@ -118,7 +118,7 @@ public class SysRoleServiceImpl implements ISysRoleService
      * @return 角色对象信息
      */
     @Override
-    public SysRole selectRoleById(Long roleId)
+    public SysRole selectRoleById(String roleId)
     {
         return roleMapper.selectRoleById(roleId);
     }
@@ -130,7 +130,7 @@ public class SysRoleServiceImpl implements ISysRoleService
      * @return 结果
      */
     @Override
-    public boolean deleteRoleById(Long roleId)
+    public boolean deleteRoleById(String roleId)
     {
         return roleMapper.deleteRoleById(roleId) > 0 ? true : false;
     }
@@ -144,8 +144,8 @@ public class SysRoleServiceImpl implements ISysRoleService
     @Override
     public int deleteRoleByIds(String ids) throws BusinessException
     {
-        Long[] roleIds = Convert.toLongArray(ids);
-        for (Long roleId : roleIds)
+        String[] roleIds = Convert.toStrArray(ids);
+        for (String roleId : roleIds)
         {
             SysRole role = selectRoleById(roleId);
             if (countUserRoleByRoleId(roleId) > 0)
@@ -213,7 +213,7 @@ public class SysRoleServiceImpl implements ISysRoleService
         int rows = 1;
         // 新增用户与角色管理
         List<SysRoleMenu> list = new ArrayList<SysRoleMenu>();
-        for (Long menuId : role.getMenuIds())
+        for (String menuId : role.getMenuIds())
         {
             SysRoleMenu rm = new SysRoleMenu();
             rm.setRoleId(role.getRoleId());
@@ -237,7 +237,7 @@ public class SysRoleServiceImpl implements ISysRoleService
         int rows = 1;
         // 新增角色与部门（数据权限）管理
         List<SysRoleDept> list = new ArrayList<SysRoleDept>();
-        for (Long deptId : role.getDeptIds())
+        for (String deptId : role.getDeptIds())
         {
             SysRoleDept rd = new SysRoleDept();
             rd.setRoleId(role.getRoleId());
@@ -260,9 +260,9 @@ public class SysRoleServiceImpl implements ISysRoleService
     @Override
     public String checkRoleNameUnique(SysRole role)
     {
-        Long roleId = StringUtils.isNull(role.getRoleId()) ? -1L : role.getRoleId();
+        String roleId = StringUtils.isNull(role.getRoleId()) ? null : role.getRoleId();
         SysRole info = roleMapper.checkRoleNameUnique(role.getRoleName());
-        if (StringUtils.isNotNull(info) && info.getRoleId().longValue() != roleId.longValue())
+        if (StringUtils.isNotNull(info) && !info.getRoleId().equals(roleId))
         {
             return UserConstants.ROLE_NAME_NOT_UNIQUE;
         }
@@ -278,9 +278,9 @@ public class SysRoleServiceImpl implements ISysRoleService
     @Override
     public String checkRoleKeyUnique(SysRole role)
     {
-        Long roleId = StringUtils.isNull(role.getRoleId()) ? -1L : role.getRoleId();
+        String roleId = StringUtils.isNull(role.getRoleId()) ? null : role.getRoleId();
         SysRole info = roleMapper.checkRoleKeyUnique(role.getRoleKey());
-        if (StringUtils.isNotNull(info) && info.getRoleId().longValue() != roleId.longValue())
+        if (StringUtils.isNotNull(info) && !info.getRoleId().equals(roleId))
         {
             return UserConstants.ROLE_KEY_NOT_UNIQUE;
         }
@@ -294,7 +294,7 @@ public class SysRoleServiceImpl implements ISysRoleService
      * @return 结果
      */
     @Override
-    public int countUserRoleByRoleId(Long roleId)
+    public int countUserRoleByRoleId(String roleId)
     {
         return userRoleMapper.countUserRoleByRoleId(roleId);
     }

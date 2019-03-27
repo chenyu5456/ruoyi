@@ -148,7 +148,7 @@ public class BaseController
         ShiroUtils.setSysUser(user);
     }
 
-    public Long getUserId()
+    public String getUserId()
     {
         return getSysUser().getUserId();
     }

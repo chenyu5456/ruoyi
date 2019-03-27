@@ -1,6 +1,8 @@
 package com.ruoyi.web.controller.system;
 
 import java.util.List;
+
+import com.ruoyi.common.utils.UUIDUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -96,6 +98,7 @@ public class SysPostController extends BaseController
     @ResponseBody
     public AjaxResult addSave(SysPost post)
     {
+        post.setPostId(UUIDUtils.createUUID());
         post.setCreateBy(ShiroUtils.getLoginName());
         return toAjax(postService.insertPost(post));
     }
@@ -104,7 +107,7 @@ public class SysPostController extends BaseController
      * 修改岗位
      */
     @GetMapping("/edit/{postId}")
-    public String edit(@PathVariable("postId") Long postId, ModelMap mmap)
+    public String edit(@PathVariable("postId") String postId, ModelMap mmap)
     {
         mmap.put("post", postService.selectPostById(postId));
         return prefix + "/edit";

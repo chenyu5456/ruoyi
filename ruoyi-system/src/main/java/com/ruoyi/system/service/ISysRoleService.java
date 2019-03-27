@@ -25,7 +25,7 @@ public interface ISysRoleService
      * @param userId 用户ID
      * @return 权限列表
      */
-    public Set<String> selectRoleKeys(Long userId);
+    public Set<String> selectRoleKeys(String userId);
 
     /**
      * 根据用户ID查询角色
@@ -33,7 +33,7 @@ public interface ISysRoleService
      * @param userId 用户ID
      * @return 角色列表
      */
-    public List<SysRole> selectRolesByUserId(Long userId);
+    public List<SysRole> selectRolesByUserId(String userId);
 
     /**
      * 查询所有角色
@@ -48,7 +48,7 @@ public interface ISysRoleService
      * @param roleId 角色ID
      * @return 角色对象信息
      */
-    public SysRole selectRoleById(Long roleId);
+    public SysRole selectRoleById(String roleId);
 
     /**
      * 通过角色ID删除角色
@@ -56,7 +56,7 @@ public interface ISysRoleService
      * @param roleId 角色ID
      * @return 结果
      */
-    public boolean deleteRoleById(Long roleId);
+    public boolean deleteRoleById(String roleId);
 
     /**
      * 批量删除角色用户信息
@@ -113,7 +113,7 @@ public interface ISysRoleService
      * @param roleId 角色ID
      * @return 结果
      */
-    public int countUserRoleByRoleId(Long roleId);
+    public int countUserRoleByRoleId(String roleId);
 
     /**
      * 角色状态修改

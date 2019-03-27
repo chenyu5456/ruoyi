@@ -1,6 +1,8 @@
 package com.ruoyi.web.controller.system;
 
 import java.util.List;
+
+import com.ruoyi.common.utils.UUIDUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -82,6 +84,7 @@ public class SysRoleController extends BaseController
     @ResponseBody
     public AjaxResult addSave(SysRole role)
     {
+        role.setRoleId(UUIDUtils.createUUID());
         role.setCreateBy(ShiroUtils.getLoginName());
         ShiroUtils.clearCachedAuthorizationInfo();
         return toAjax(roleService.insertRole(role));
@@ -92,7 +95,7 @@ public class SysRoleController extends BaseController
      * 修改角色
      */
     @GetMapping("/edit/{roleId}")
-    public String edit(@PathVariable("roleId") Long roleId, ModelMap mmap)
+    public String edit(@PathVariable("roleId") String roleId, ModelMap mmap)
     {
         mmap.put("role", roleService.selectRoleById(roleId));
         return prefix + "/edit";
@@ -117,7 +120,7 @@ public class SysRoleController extends BaseController
      * 新增数据权限
      */
     @GetMapping("/rule/{roleId}")
-    public String rule(@PathVariable("roleId") Long roleId, ModelMap mmap)
+    public String rule(@PathVariable("roleId") String roleId, ModelMap mmap)
     {
         mmap.put("role", roleService.selectRoleById(roleId));
         return prefix + "/rule";

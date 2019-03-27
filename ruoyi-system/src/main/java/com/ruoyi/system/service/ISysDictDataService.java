@@ -41,7 +41,7 @@ public interface ISysDictDataService
      * @param dictCode 字典数据ID
      * @return 字典数据
      */
-    public SysDictData selectDictDataById(Long dictCode);
+    public SysDictData selectDictDataById(String dictCode);
 
     /**
      * 通过字典ID删除字典数据信息
@@ -49,7 +49,7 @@ public interface ISysDictDataService
      * @param dictCode 字典数据ID
      * @return 结果
      */
-    public int deleteDictDataById(Long dictCode);
+    public int deleteDictDataById(String dictCode);
 
     /**
      * 批量删除字典数据

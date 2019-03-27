@@ -56,7 +56,7 @@ public class SysDictTypeServiceImpl implements ISysDictTypeService
      * @return 字典类型
      */
     @Override
-    public SysDictType selectDictTypeById(Long dictId)
+    public SysDictType selectDictTypeById(String dictId)
     {
         return dictTypeMapper.selectDictTypeById(dictId);
     }
@@ -68,7 +68,7 @@ public class SysDictTypeServiceImpl implements ISysDictTypeService
      * @return 结果
      */
     @Override
-    public int deleteDictTypeById(Long dictId)
+    public int deleteDictTypeById(String dictId)
     {
         return dictTypeMapper.deleteDictTypeById(dictId);
     }
@@ -82,8 +82,8 @@ public class SysDictTypeServiceImpl implements ISysDictTypeService
     @Override
     public int deleteDictTypeByIds(String ids) throws BusinessException
     {
-        Long[] dictIds = Convert.toLongArray(ids);
-        for (Long dictId : dictIds)
+        String[] dictIds = Convert.toStrArray(ids);
+        for (String dictId : dictIds)
         {
             SysDictType dictType = selectDictTypeById(dictId);
             if (dictDataMapper.countDictDataByType(dictType.getDictType()) > 0)
@@ -130,9 +130,9 @@ public class SysDictTypeServiceImpl implements ISysDictTypeService
     @Override
     public String checkDictTypeUnique(SysDictType dict)
     {
-        Long dictId = StringUtils.isNull(dict.getDictId()) ? -1L : dict.getDictId();
+        String dictId = StringUtils.isNull(dict.getDictId()) ? null : dict.getDictId();
         SysDictType dictType = dictTypeMapper.checkDictTypeUnique(dict.getDictType());
-        if (StringUtils.isNotNull(dictType) && dictType.getDictId().longValue() != dictId.longValue())
+        if (StringUtils.isNotNull(dictType) && !dictType.getDictId().equals(dictId))
         {
             return UserConstants.DICT_TYPE_NOT_UNIQUE;
         }

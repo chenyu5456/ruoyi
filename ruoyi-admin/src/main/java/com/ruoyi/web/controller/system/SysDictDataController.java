@@ -1,6 +1,8 @@
 package com.ruoyi.web.controller.system;
 
 import java.util.List;
+
+import com.ruoyi.common.utils.UUIDUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -81,6 +83,7 @@ public class SysDictDataController extends BaseController
     @ResponseBody
     public AjaxResult addSave(SysDictData dict)
     {
+        dict.setDictCode(UUIDUtils.createUUID());
         dict.setCreateBy(ShiroUtils.getLoginName());
         return toAjax(dictDataService.insertDictData(dict));
     }
@@ -89,7 +92,7 @@ public class SysDictDataController extends BaseController
      * 修改字典类型
      */
     @GetMapping("/edit/{dictCode}")
-    public String edit(@PathVariable("dictCode") Long dictCode, ModelMap mmap)
+    public String edit(@PathVariable("dictCode") String dictCode, ModelMap mmap)
     {
         mmap.put("dict", dictDataService.selectDictDataById(dictCode));
         return prefix + "/edit";

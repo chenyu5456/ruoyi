@@ -1,5 +1,6 @@
 package com.ruoyi.system.domain;
 
+import lombok.Data;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import com.ruoyi.common.annotation.Excel;
@@ -10,13 +11,14 @@ import com.ruoyi.common.base.BaseEntity;
  * 
  * @author ruoyi
  */
+@Data
 public class SysRole extends BaseEntity
 {
     private static final long serialVersionUID = 1L;
 
     /** 角色ID */
     @Excel(name = "角色序号")
-    private Long roleId;
+    private String roleId;
 
     /** 角色名称 */
     @Excel(name = "角色名称")
@@ -45,110 +47,10 @@ public class SysRole extends BaseEntity
     private boolean flag = false;
 
     /** 菜单组 */
-    private Long[] menuIds;
+    private String[] menuIds;
 
     /** 部门组（数据权限） */
-    private Long[] deptIds;
-
-    public Long getRoleId()
-    {
-        return roleId;
-    }
-
-    public void setRoleId(Long roleId)
-    {
-        this.roleId = roleId;
-    }
-
-    public String getDataScope()
-    {
-        return dataScope;
-    }
-
-    public void setDataScope(String dataScope)
-    {
-        this.dataScope = dataScope;
-    }
-
-    public String getRoleName()
-    {
-        return roleName;
-    }
-
-    public void setRoleName(String roleName)
-    {
-        this.roleName = roleName;
-    }
-
-    public String getRoleKey()
-    {
-        return roleKey;
-    }
-
-    public void setRoleKey(String roleKey)
-    {
-        this.roleKey = roleKey;
-    }
-
-    public String getRoleSort()
-    {
-        return roleSort;
-    }
-
-    public void setRoleSort(String roleSort)
-    {
-        this.roleSort = roleSort;
-    }
-
-    public String getStatus()
-    {
-        return status;
-    }
-
-    public String getDelFlag()
-    {
-        return delFlag;
-    }
-
-    public void setDelFlag(String delFlag)
-    {
-        this.delFlag = delFlag;
-    }
-
-    public void setStatus(String status)
-    {
-        this.status = status;
-    }
-
-    public boolean isFlag()
-    {
-        return flag;
-    }
-
-    public void setFlag(boolean flag)
-    {
-        this.flag = flag;
-    }
-
-    public Long[] getMenuIds()
-    {
-        return menuIds;
-    }
-
-    public void setMenuIds(Long[] menuIds)
-    {
-        this.menuIds = menuIds;
-    }
-
-    public Long[] getDeptIds()
-    {
-        return deptIds;
-    }
-
-    public void setDeptIds(Long[] deptIds)
-    {
-        this.deptIds = deptIds;
-    }
+    private String[] deptIds;
 
     @Override
     public String toString() {

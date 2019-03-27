@@ -63,7 +63,7 @@ public class SysDictDataServiceImpl implements ISysDictDataService
      * @return 字典数据
      */
     @Override
-    public SysDictData selectDictDataById(Long dictCode)
+    public SysDictData selectDictDataById(String dictCode)
     {
         return dictDataMapper.selectDictDataById(dictCode);
     }
@@ -75,7 +75,7 @@ public class SysDictDataServiceImpl implements ISysDictDataService
      * @return 结果
      */
     @Override
-    public int deleteDictDataById(Long dictCode)
+    public int deleteDictDataById(String dictCode)
     {
         return dictDataMapper.deleteDictDataById(dictCode);
     }

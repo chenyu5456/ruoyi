@@ -1,6 +1,8 @@
 package com.ruoyi.web.controller.system;
 
 import java.util.List;
+
+import com.ruoyi.common.utils.UUIDUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -91,7 +93,7 @@ public class SysConfigController extends BaseController
      * 修改参数配置
      */
     @GetMapping("/edit/{configId}")
-    public String edit(@PathVariable("configId") Long configId, ModelMap mmap)
+    public String edit(@PathVariable("configId") String configId, ModelMap mmap)
     {
         mmap.put("config", configService.selectConfigById(configId));
         return prefix + "/edit";
@@ -106,6 +108,7 @@ public class SysConfigController extends BaseController
     @ResponseBody
     public AjaxResult editSave(SysConfig config)
     {
+        config.setConfigId(UUIDUtils.createUUID());
         config.setUpdateBy(ShiroUtils.getLoginName());
         return toAjax(configService.updateConfig(config));
     }

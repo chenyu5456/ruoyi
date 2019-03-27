@@ -1,5 +1,6 @@
 package com.ruoyi.system.domain;
 
+import lombok.Data;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import com.ruoyi.common.base.BaseEntity;
@@ -9,15 +10,16 @@ import com.ruoyi.common.base.BaseEntity;
  * 
  * @author ruoyi
  */
+@Data
 public class SysDept extends BaseEntity
 {
     private static final long serialVersionUID = 1L;
 
     /** 部门ID */
-    private Long deptId;
+    private String deptId;
 
     /** 父部门ID */
-    private Long parentId;
+    private String parentId;
 
     /** 祖级列表 */
     private String ancestors;
@@ -45,116 +47,6 @@ public class SysDept extends BaseEntity
 
     /** 父部门名称 */
     private String parentName;
-
-    public Long getDeptId()
-    {
-        return deptId;
-    }
-
-    public void setDeptId(Long deptId)
-    {
-        this.deptId = deptId;
-    }
-
-    public Long getParentId()
-    {
-        return parentId;
-    }
-
-    public void setParentId(Long parentId)
-    {
-        this.parentId = parentId;
-    }
-
-    public String getAncestors()
-    {
-        return ancestors;
-    }
-
-    public void setAncestors(String ancestors)
-    {
-        this.ancestors = ancestors;
-    }
-
-    public String getDeptName()
-    {
-        return deptName;
-    }
-
-    public void setDeptName(String deptName)
-    {
-        this.deptName = deptName;
-    }
-
-    public String getOrderNum()
-    {
-        return orderNum;
-    }
-
-    public void setOrderNum(String orderNum)
-    {
-        this.orderNum = orderNum;
-    }
-
-    public String getLeader()
-    {
-        return leader;
-    }
-
-    public void setLeader(String leader)
-    {
-        this.leader = leader;
-    }
-
-    public String getPhone()
-    {
-        return phone;
-    }
-
-    public void setPhone(String phone)
-    {
-        this.phone = phone;
-    }
-
-    public String getEmail()
-    {
-        return email;
-    }
-
-    public void setEmail(String email)
-    {
-        this.email = email;
-    }
-
-    public String getStatus()
-    {
-        return status;
-    }
-
-    public void setStatus(String status)
-    {
-        this.status = status;
-    }
-
-    public String getDelFlag()
-    {
-        return delFlag;
-    }
-
-    public void setDelFlag(String delFlag)
-    {
-        this.delFlag = delFlag;
-    }
-
-    public String getParentName()
-    {
-        return parentName;
-    }
-
-    public void setParentName(String parentName)
-    {
-        this.parentName = parentName;
-    }
 
     @Override
     public String toString() {

@@ -1,6 +1,8 @@
 package com.ruoyi.web.controller.system;
 
 import java.util.List;
+
+import com.ruoyi.common.utils.UUIDUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -81,6 +83,7 @@ public class SysDictTypeController extends BaseController
     @ResponseBody
     public AjaxResult addSave(SysDictType dict)
     {
+        dict.setDictId(UUIDUtils.createUUID());
         dict.setCreateBy(ShiroUtils.getLoginName());
         return toAjax(dictTypeService.insertDictType(dict));
     }
@@ -89,7 +92,7 @@ public class SysDictTypeController extends BaseController
      * 修改字典类型
      */
     @GetMapping("/edit/{dictId}")
-    public String edit(@PathVariable("dictId") Long dictId, ModelMap mmap)
+    public String edit(@PathVariable("dictId") String dictId, ModelMap mmap)
     {
         mmap.put("dict", dictTypeService.selectDictTypeById(dictId));
         return prefix + "/edit";
@@ -129,7 +132,7 @@ public class SysDictTypeController extends BaseController
      */
     @RequiresPermissions("system:dict:list")
     @GetMapping("/detail/{dictId}")
-    public String detail(@PathVariable("dictId") Long dictId, ModelMap mmap)
+    public String detail(@PathVariable("dictId") String dictId, ModelMap mmap)
     {
         mmap.put("dict", dictTypeService.selectDictTypeById(dictId));
         mmap.put("dictList", dictTypeService.selectDictTypeAll());

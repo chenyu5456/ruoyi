@@ -31,7 +31,7 @@ public interface ISysDictTypeService
      * @param dictId 字典类型ID
      * @return 字典类型
      */
-    public SysDictType selectDictTypeById(Long dictId);
+    public SysDictType selectDictTypeById(String dictId);
 
     /**
      * 通过字典ID删除字典信息
@@ -39,7 +39,7 @@ public interface ISysDictTypeService
      * @param dictId 字典ID
      * @return 结果
      */
-    public int deleteDictTypeById(Long dictId);
+    public int deleteDictTypeById(String dictId);
 
     /**
      * 批量删除字典类型

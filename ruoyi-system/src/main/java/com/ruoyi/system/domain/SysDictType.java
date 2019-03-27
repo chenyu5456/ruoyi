@@ -1,5 +1,6 @@
 package com.ruoyi.system.domain;
 
+import lombok.Data;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import com.ruoyi.common.annotation.Excel;
@@ -10,13 +11,14 @@ import com.ruoyi.common.base.BaseEntity;
  * 
  * @author ruoyi
  */
+@Data
 public class SysDictType extends BaseEntity
 {
     private static final long serialVersionUID = 1L;
 
     /** 字典主键 */
     @Excel(name = "字典主键")
-    private Long dictId;
+    private String dictId;
 
     /** 字典名称 */
     @Excel(name = "字典名称")
@@ -29,46 +31,6 @@ public class SysDictType extends BaseEntity
     /** 状态（0正常 1停用） */
     @Excel(name = "状态", readConverterExp = "0=正常,1=停用")
     private String status;
-
-    public Long getDictId()
-    {
-        return dictId;
-    }
-
-    public void setDictId(Long dictId)
-    {
-        this.dictId = dictId;
-    }
-
-    public String getDictName()
-    {
-        return dictName;
-    }
-
-    public void setDictName(String dictName)
-    {
-        this.dictName = dictName;
-    }
-
-    public String getDictType()
-    {
-        return dictType;
-    }
-
-    public void setDictType(String dictType)
-    {
-        this.dictType = dictType;
-    }
-
-    public String getStatus()
-    {
-        return status;
-    }
-
-    public void setStatus(String status)
-    {
-        this.status = status;
-    }
 
     @Override
     public String toString() {

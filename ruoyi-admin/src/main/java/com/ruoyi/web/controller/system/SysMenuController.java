@@ -2,6 +2,9 @@ package com.ruoyi.web.controller.system;
 
 import java.util.List;
 import java.util.Map;
+
+import com.ruoyi.common.utils.StringUtils;
+import com.ruoyi.common.utils.UUIDUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -57,7 +60,7 @@ public class SysMenuController extends BaseController
     @RequiresPermissions("system:menu:remove")
     @PostMapping("/remove/{menuId}")
     @ResponseBody
-    public AjaxResult remove(@PathVariable("menuId") Long menuId)
+    public AjaxResult remove(@PathVariable("menuId") String menuId)
     {
         if (menuService.selectCountMenuByParentId(menuId) > 0)
         {
@@ -75,17 +78,17 @@ public class SysMenuController extends BaseController
      * 新增
      */
     @GetMapping("/add/{parentId}")
-    public String add(@PathVariable("parentId") Long parentId, ModelMap mmap)
+    public String add(@PathVariable("parentId") String parentId, ModelMap mmap)
     {
         SysMenu menu = null;
-        if (0L != parentId)
+        if (!"0".equals(parentId))
         {
             menu = menuService.selectMenuById(parentId);
         }
         else
         {
             menu = new SysMenu();
-            menu.setMenuId(0L);
+            menu.setMenuId("0");
             menu.setMenuName("主目录");
         }
         mmap.put("menu", menu);
@@ -101,6 +104,7 @@ public class SysMenuController extends BaseController
     @ResponseBody
     public AjaxResult addSave(SysMenu menu)
     {
+        menu.setMenuId(UUIDUtils.createUUID());
         menu.setCreateBy(ShiroUtils.getLoginName());
         ShiroUtils.clearCachedAuthorizationInfo();
         return toAjax(menuService.insertMenu(menu));
@@ -110,7 +114,7 @@ public class SysMenuController extends BaseController
      * 修改菜单
      */
     @GetMapping("/edit/{menuId}")
-    public String edit(@PathVariable("menuId") Long menuId, ModelMap mmap)
+    public String edit(@PathVariable("menuId") String menuId, ModelMap mmap)
     {
         mmap.put("menu", menuService.selectMenuById(menuId));
         return prefix + "/edit";
@@ -175,7 +179,7 @@ public class SysMenuController extends BaseController
      * 选择菜单树
      */
     @GetMapping("/selectMenuTree/{menuId}")
-    public String selectMenuTree(@PathVariable("menuId") Long menuId, ModelMap mmap)
+    public String selectMenuTree(@PathVariable("menuId") String menuId, ModelMap mmap)
     {
         mmap.put("menu", menuService.selectMenuById(menuId));
         return prefix + "/tree";

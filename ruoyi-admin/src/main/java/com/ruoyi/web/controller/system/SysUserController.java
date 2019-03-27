@@ -1,6 +1,8 @@
 package com.ruoyi.web.controller.system;
 
 import java.util.List;
+
+import com.ruoyi.common.utils.UUIDUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -124,6 +126,7 @@ public class SysUserController extends BaseController
         {
             return error("不允许修改超级管理员用户");
         }
+        user.setUserId(UUIDUtils.createUUID());
         user.setSalt(ShiroUtils.randomSalt());
         user.setPassword(passwordService.encryptPassword(user.getLoginName(), user.getPassword(), user.getSalt()));
         user.setCreateBy(ShiroUtils.getLoginName());
@@ -134,7 +137,7 @@ public class SysUserController extends BaseController
      * 修改用户
      */
     @GetMapping("/edit/{userId}")
-    public String edit(@PathVariable("userId") Long userId, ModelMap mmap)
+    public String edit(@PathVariable("userId") String userId, ModelMap mmap)
     {
         mmap.put("user", userService.selectUserById(userId));
         mmap.put("roles", roleService.selectRolesByUserId(userId));
@@ -163,7 +166,7 @@ public class SysUserController extends BaseController
     @RequiresPermissions("system:user:resetPwd")
     @Log(title = "重置密码", businessType = BusinessType.UPDATE)
     @GetMapping("/resetPwd/{userId}")
-    public String resetPwd(@PathVariable("userId") Long userId, ModelMap mmap)
+    public String resetPwd(@PathVariable("userId") String userId, ModelMap mmap)
     {
         mmap.put("user", userService.selectUserById(userId));
         return prefix + "/resetPwd";

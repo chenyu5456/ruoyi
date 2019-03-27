@@ -2,6 +2,8 @@ package com.ruoyi.web.controller.system;
 
 import java.util.List;
 import java.util.Map;
+
+import com.ruoyi.common.utils.UUIDUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -55,7 +57,7 @@ public class SysDeptController extends BaseController
      * 新增部门
      */
     @GetMapping("/add/{parentId}")
-    public String add(@PathVariable("parentId") Long parentId, ModelMap mmap)
+    public String add(@PathVariable("parentId") String parentId, ModelMap mmap)
     {
         mmap.put("dept", deptService.selectDeptById(parentId));
         return prefix + "/add";
@@ -70,6 +72,7 @@ public class SysDeptController extends BaseController
     @ResponseBody
     public AjaxResult addSave(SysDept dept)
     {
+        dept.setDeptId(UUIDUtils.createUUID());
         dept.setCreateBy(ShiroUtils.getLoginName());
         return toAjax(deptService.insertDept(dept));
     }
@@ -78,10 +81,10 @@ public class SysDeptController extends BaseController
      * 修改
      */
     @GetMapping("/edit/{deptId}")
-    public String edit(@PathVariable("deptId") Long deptId, ModelMap mmap)
+    public String edit(@PathVariable("deptId") String deptId, ModelMap mmap)
     {
         SysDept dept = deptService.selectDeptById(deptId);
-        if (StringUtils.isNotNull(dept) && 100L == deptId)
+        if (StringUtils.isNotNull(dept))
         {
             dept.setParentName("无");
         }
@@ -109,7 +112,7 @@ public class SysDeptController extends BaseController
     @RequiresPermissions("system:dept:remove")
     @PostMapping("/remove/{deptId}")
     @ResponseBody
-    public AjaxResult remove(@PathVariable("deptId") Long deptId)
+    public AjaxResult remove(@PathVariable("deptId") String deptId)
     {
         if (deptService.selectDeptCount(deptId) > 0)
         {
@@ -136,7 +139,7 @@ public class SysDeptController extends BaseController
      * 选择部门树
      */
     @GetMapping("/selectDeptTree/{deptId}")
-    public String selectDeptTree(@PathVariable("deptId") Long deptId, ModelMap mmap)
+    public String selectDeptTree(@PathVariable("deptId") String deptId, ModelMap mmap)
     {
         mmap.put("dept", deptService.selectDeptById(deptId));
         return prefix + "/tree";

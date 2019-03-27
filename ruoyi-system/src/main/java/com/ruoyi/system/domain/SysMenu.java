@@ -1,5 +1,6 @@
 package com.ruoyi.system.domain;
 
+import lombok.Data;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import java.util.ArrayList;
@@ -11,12 +12,13 @@ import com.ruoyi.common.base.BaseEntity;
  * 
  * @author ruoyi
  */
+@Data
 public class SysMenu extends BaseEntity
 {
     private static final long serialVersionUID = 1L;
     
     /** 菜单ID */
-    private Long menuId;
+    private String menuId;
     
     /** 菜单名称 */
     private String menuName;
@@ -25,7 +27,7 @@ public class SysMenu extends BaseEntity
     private String parentName;
     
     /** 父菜单ID */
-    private Long parentId;
+    private String parentId;
     
     /** 显示顺序 */
     private String orderNum;
@@ -47,116 +49,6 @@ public class SysMenu extends BaseEntity
     
     /** 子菜单 */
     private List<SysMenu> children = new ArrayList<SysMenu>();
-
-    public Long getMenuId()
-    {
-        return menuId;
-    }
-
-    public void setMenuId(Long menuId)
-    {
-        this.menuId = menuId;
-    }
-
-    public String getMenuName()
-    {
-        return menuName;
-    }
-
-    public void setMenuName(String menuName)
-    {
-        this.menuName = menuName;
-    }
-
-    public String getParentName()
-    {
-        return parentName;
-    }
-
-    public void setParentName(String parentName)
-    {
-        this.parentName = parentName;
-    }
-
-    public Long getParentId()
-    {
-        return parentId;
-    }
-
-    public void setParentId(Long parentId)
-    {
-        this.parentId = parentId;
-    }
-
-    public String getOrderNum()
-    {
-        return orderNum;
-    }
-
-    public void setOrderNum(String orderNum)
-    {
-        this.orderNum = orderNum;
-    }
-
-    public String getUrl()
-    {
-        return url;
-    }
-
-    public void setUrl(String url)
-    {
-        this.url = url;
-    }
-
-    public String getMenuType()
-    {
-        return menuType;
-    }
-
-    public void setMenuType(String menuType)
-    {
-        this.menuType = menuType;
-    }
-
-    public String getVisible()
-    {
-        return visible;
-    }
-
-    public void setVisible(String visible)
-    {
-        this.visible = visible;
-    }
-
-    public String getPerms()
-    {
-        return perms;
-    }
-
-    public void setPerms(String perms)
-    {
-        this.perms = perms;
-    }
-
-    public String getIcon()
-    {
-        return icon;
-    }
-
-    public void setIcon(String icon)
-    {
-        this.icon = icon;
-    }
-
-    public List<SysMenu> getChildren()
-    {
-        return children;
-    }
-
-    public void setChildren(List<SysMenu> children)
-    {
-        this.children = children;
-    }
 
     @Override
     public String toString() {

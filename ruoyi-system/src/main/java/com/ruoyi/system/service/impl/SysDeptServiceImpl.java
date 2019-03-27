@@ -64,7 +64,7 @@ public class SysDeptServiceImpl implements ISysDeptService
     @Override
     public List<Map<String, Object>> roleDeptTreeData(SysRole role)
     {
-        Long roleId = role.getRoleId();
+        String roleId = role.getRoleId();
         List<Map<String, Object>> trees = new ArrayList<Map<String, Object>>();
         List<SysDept> deptList = selectDeptList(new SysDept());
         if (StringUtils.isNotNull(roleId))
@@ -121,7 +121,7 @@ public class SysDeptServiceImpl implements ISysDeptService
      * @return 结果
      */
     @Override
-    public int selectDeptCount(Long parentId)
+    public int selectDeptCount(String parentId)
     {
         SysDept dept = new SysDept();
         dept.setParentId(parentId);
@@ -135,7 +135,7 @@ public class SysDeptServiceImpl implements ISysDeptService
      * @return 结果 true 存在 false 不存在
      */
     @Override
-    public boolean checkDeptExistUser(Long deptId)
+    public boolean checkDeptExistUser(String deptId)
     {
         int result = deptMapper.checkDeptExistUser(deptId);
         return result > 0 ? true : false;
@@ -148,7 +148,7 @@ public class SysDeptServiceImpl implements ISysDeptService
      * @return 结果
      */
     @Override
-    public int deleteDeptById(Long deptId)
+    public int deleteDeptById(String deptId)
     {
         return deptMapper.deleteDeptById(deptId);
     }
@@ -216,7 +216,7 @@ public class SysDeptServiceImpl implements ISysDeptService
      * @param deptId 部门ID
      * @param ancestors 元素列表
      */
-    public void updateDeptChildren(Long deptId, String ancestors)
+    public void updateDeptChildren(String deptId, String ancestors)
     {
         SysDept dept = new SysDept();
         dept.setParentId(deptId);
@@ -238,7 +238,7 @@ public class SysDeptServiceImpl implements ISysDeptService
      * @return 部门信息
      */
     @Override
-    public SysDept selectDeptById(Long deptId)
+    public SysDept selectDeptById(String deptId)
     {
         return deptMapper.selectDeptById(deptId);
     }
@@ -252,9 +252,9 @@ public class SysDeptServiceImpl implements ISysDeptService
     @Override
     public String checkDeptNameUnique(SysDept dept)
     {
-        Long deptId = StringUtils.isNull(dept.getDeptId()) ? -1L : dept.getDeptId();
+        String deptId = StringUtils.isNull(dept.getDeptId()) ? null : dept.getDeptId();
         SysDept info = deptMapper.checkDeptNameUnique(dept.getDeptName(), dept.getParentId());
-        if (StringUtils.isNotNull(info) && info.getDeptId().longValue() != deptId.longValue())
+        if (StringUtils.isNotNull(info) && !info.getDeptId().equals(deptId))
         {
             return UserConstants.DEPT_NAME_NOT_UNIQUE;
         }

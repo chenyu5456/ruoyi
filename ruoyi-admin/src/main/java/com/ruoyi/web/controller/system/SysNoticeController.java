@@ -1,6 +1,8 @@
 package com.ruoyi.web.controller.system;
 
 import java.util.List;
+
+import com.ruoyi.common.utils.UUIDUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -71,6 +73,7 @@ public class SysNoticeController extends BaseController
     @ResponseBody
     public AjaxResult addSave(SysNotice notice)
     {
+        notice.setNoticeId(UUIDUtils.createUUID());
         notice.setCreateBy(ShiroUtils.getLoginName());
         return toAjax(noticeService.insertNotice(notice));
     }
@@ -79,7 +82,7 @@ public class SysNoticeController extends BaseController
      * 修改公告
      */
     @GetMapping("/edit/{noticeId}")
-    public String edit(@PathVariable("noticeId") Long noticeId, ModelMap mmap)
+    public String edit(@PathVariable("noticeId") String noticeId, ModelMap mmap)
     {
         mmap.put("notice", noticeService.selectNoticeById(noticeId));
         return prefix + "/edit";
