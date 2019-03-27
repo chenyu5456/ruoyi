@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import lombok.Data;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import com.ruoyi.common.annotation.Excel;
@@ -104,7 +105,7 @@ public class SysUser extends BaseEntity
 
     public static boolean isAdmin(String userId)
     {
-        return userId != null && "" != userId;
+        return StringUtils.isNotEmpty(userId) && "1".equals(userId);
     }
 
     @Override
