@@ -94,6 +94,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  	
  	<insert id="insertDictData" parameterType="SysDictData">
  		insert into sys_dict_data(
+ 			<if test="dictCode != null and dictCode != ''">dict_code,</if>
  			<if test="dictSort != null and dictSort != ''">dict_sort,</if>
  			<if test="dictLabel != null and dictLabel != ''">dict_label,</if>
  			<if test="dictValue != null and dictValue != ''">dict_value,</if>
@@ -106,6 +107,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  			<if test="createBy != null and createBy != ''">create_by,</if>
  			create_time
  		)values(
+ 		    <if test="dictCode != null and dictCode != ''">#{dictCode},</if>
  		    <if test="dictSort != null and dictSort != ''">#{dictSort},</if>
  		    <if test="dictLabel != null and dictLabel != ''">#{dictLabel},</if>
  			<if test="dictValue != null and dictValue != ''">#{dictValue},</if>
